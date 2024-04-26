@@ -1,6 +1,28 @@
 #include "Particle.h"
 
 
+Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosition) : m_A(2, numPoints) {
+
+}
+void Particle::draw(RenderTarget& target, RenderStates states) const {
+
+}
+void Particle::update(float dt) {
+
+}
+
+void Particle::rotate(double theta) {
+
+}
+
+void Particle::scale(double c) {
+
+}
+void Particle::translate(double xShift, double yShift) {
+    TranslationMatrix T(xShift, yShift, 5);
+
+}
+
 bool Particle::almostEqual(double a, double b, double eps)
 {
 	return fabs(a - b) < eps;
