@@ -12,7 +12,6 @@ void Engine::run() {
 	p.unitTests();
 	cout << "Unit tests complete.  Starting engine..." << endl;
 	//game loop
-	/*
 	while (m_Window.isOpen()) {
 		//restart the clock since last frame
 		clock.restart();
@@ -24,11 +23,19 @@ void Engine::run() {
 		update(timeElapced);
 		draw();
 	}
-	*/
 }
 
 void Engine::input() {
-
+	Event event;
+	m_Window.pollEvent(event);
+	if (Keyboard::isKeyPressed(Keyboard::Escape)) {
+		m_Window.close();
+	}
+	if (event.type == Event::MouseButtonPressed) {
+		if (event.mouseButton.button == Mouse::Left) {
+		cout << "Click" << endl;
+		}
+	}
 }
 
 void Engine::update(float dtAsSeconds) {
@@ -36,6 +43,11 @@ void Engine::update(float dtAsSeconds) {
 }
 
 void Engine::draw() {
+	m_Window.clear();
+	for (auto i : m_particles) {
+		m_window.draw(i);
+	}
+	m_window.display();
 
 }
 
