@@ -2,9 +2,41 @@
 
 
 Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosition) : m_A(2, numPoints) {
+    m_ttl = TTL;
+    m_numPoints = numPoints;
+    float PI = M_PI;
+    m_radiansPerSec = (float(rand()) / (RAND_MAX)) * PI;
+    m_cartesianPlane.setCenter(0, 0);
+    m_cartesianPlane.setSize(target.getSize().x, ((-1.0) * target.getSize().y));
+    m_centerCoordinate = target.mapPixelToCoords(mouseClickPosition, m_cartesianPlane);
+    //can change these to see what happens
+    m_vx = rand() % 500 + 100;
+    m_vy = rand() % 500 + 100;
+    m_color1 = Color::White;
+    m_color2 = Color::Green;
+    //definiatly fix this one
+    //we are trying to intialize theta to a value between 0 and PI/2
+    float theta = float(rand())/RAND_MAX*(PI/2.0);
+    float dTheta = 2 * PI / (m_numPoints - 1);
+
+
+    for (int j = 0; j < numPoints; j++) {
+        float r, dx, dy;
+        r = rand() % 80 + 20;
+        dx = r * cos(theta);
+        dy = r * sin(theta);
+        m_A(0, j) = m_centerCoordinate.x + dx;
+        m_A(1, j) = m_centerCoordinate.y + dy; 
+        theta += dTheta;
+    }
+    
+
+
 
 }
 void Particle::draw(RenderTarget& target, RenderStates states) const {
+    VertexArray lines(TriangleFan, m_numPoints + 1);
+    //Vector2f center = target.mapCoordsToPixel(mouseClick,m_cartesianPlane);
 
 }
 void Particle::update(float dt) {

@@ -18,7 +18,8 @@ void Engine::run() {
 		//get the time of the clock
 		Time GameTime = clock.getElapsedTime();
 		//keep track of the total time elapced.
-		float timeElapced = timeElapced + GameTime.asSeconds();
+		float timeElapced = GameTime.asSeconds();
+		timeElapced += timeElapced + GameTime.asSeconds();
 		input();
 		update(timeElapced);
 		draw();
@@ -38,16 +39,30 @@ void Engine::input() {
 	}
 }
 
+
+//definitaly check this function more, seems to work but something is off about the iterator usage
 void Engine::update(float dtAsSeconds) {
+	vector<Particle>::iterator iter;
+	int i = 0;
+	for (iter = m_particles.begin(); iter < m_particles.end();) {
+		if (m_particles.at(i).getTTL() > 0.0) {
+			m_particles.at(i).update(dtAsSeconds);
+			iter++;
+			i++;
+		}
+		else {
+			iter = m_particles.erase(iter);
+		}
+	}
 
 }
 
 void Engine::draw() {
 	m_Window.clear();
 	for (auto i : m_particles) {
-		m_window.draw(i);
+		m_Window.draw(i);
 	}
-	m_window.display();
+	m_Window.display();
 
 }
 
