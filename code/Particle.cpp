@@ -14,7 +14,9 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
     m_vx = rand() % 500 + 100;
     m_vy = rand() % 500 + 100;
     m_color1 = Color::White;
-    m_color2 = Color::Green;
+    m_color2.r = rand()%255;
+    m_color2.b = rand()%255;
+    m_color2.g = rand()%255;
     //definiatly fix this one
     //we are trying to intialize theta to a value between 0 and PI/2
     float theta = float(rand())/RAND_MAX*(PI/2.0);
@@ -64,6 +66,7 @@ void Particle::update(float dt) {
     dy = m_vy * dt;
     translate(dx, dy);
     cout << "dx " << dx << " dy " << dy << endl;
+    cout << "radians per sec " << m_radiansPerSec << endl;
 }
 
 void Particle::rotate(double theta) {
