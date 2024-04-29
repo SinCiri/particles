@@ -19,7 +19,7 @@ void Engine::run() {
 		Time GameTime = clock.getElapsedTime();
 		//keep track of the total time elapced.
 		float timeElapced = GameTime.asSeconds();
-		timeElapced += timeElapced + GameTime.asSeconds();
+		timeElapced = timeElapced + GameTime.asSeconds();
 		input();
 		update(timeElapced);
 		draw();
@@ -36,8 +36,7 @@ void Engine::input() {
 		if (event.mouseButton.button == Mouse::Left) {
 		cout << "Click" << endl;
 		for (int i = 0; i < 5; i++) {
-			cout << "Creating Particles" << endl;
-			Particle p(m_Window, rand() % 50 + 25, Mouse::getPosition());
+			Particle p(m_Window, rand() % 30 + 25, Mouse::getPosition());
 			m_particles.push_back(p);
 		}
 		}

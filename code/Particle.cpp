@@ -30,6 +30,7 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
         m_A(1, j) = m_centerCoordinate.y + dy; 
         theta += dTheta;
     }
+
     
 
 
@@ -38,28 +39,31 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
 void Particle::draw(RenderTarget& target, RenderStates states) const {
     VertexArray lines(TriangleFan, m_numPoints + 1);
     //asgin this with the center of the screen?
-    Vector2f center = m_centerCoordinate;
-    lines[0].position = center;
+    Vector2i center = target.mapCoordsToPixel(m_centerCoordinate, m_cartesianPlane);
+    lines[0].position.x = center.x;
+    lines[0].position.y = center.y;
     lines[0].color = m_color1;
     for (int j = 1; j <= m_numPoints; j++) {
         //fix this
-        Vector2i point(m_A(0, j-1), m_A(0, j-1));
-        lines[j].position = target.mapPixelToCoords(point, m_cartesianPlane);
+        Vector2f point(m_A(0, j-1), m_A(1, j-1));
+        lines[j].position.x = target.mapCoordsToPixel(point, m_cartesianPlane).x;
+        lines[j].position.y = target.mapCoordsToPixel(point, m_cartesianPlane).y;
         lines[j].color = m_color2;
     }
     target.draw(lines);
 
 }
 void Particle::update(float dt) {
-    m_ttl -= dt;
+    m_ttl =m_ttl - dt;
     rotate(dt * m_radiansPerSec);
     scale(SCALE);
     float dx, dy;
     dx = m_vx * dt;
     
-    m_vy -= G * dt;
+    m_vy = m_vy - (G * dt);
     dy = m_vy * dt;
     translate(dx, dy);
+    cout << "dx " << dx << " dy " << dy << endl;
 }
 
 void Particle::rotate(double theta) {
