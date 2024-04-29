@@ -64,9 +64,11 @@ void Particle::update(float dt) {
     
     m_vy = m_vy - (G * dt);
     dy = m_vy * dt;
+    
     translate(dx, dy);
-    cout << "dx " << dx << " dy " << dy << endl;
-    cout << "radians per sec " << m_radiansPerSec << endl;
+    
+    // cout << "dx " << dx << " dy " << dy << endl;
+    // cout << "radians per sec " << m_radiansPerSec << endl;
 }
 
 void Particle::rotate(double theta) {

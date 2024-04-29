@@ -19,7 +19,6 @@ void Engine::run() {
 		//keep track of the total time elapced.
 		float timeElapced = GameTime.asSeconds();
 		timeElapced = timeElapced + GameTime.asSeconds();
-		cout << "Time: " << timeElapced << endl;
 		input();
 		update(timeElapced);
 		draw();
