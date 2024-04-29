@@ -35,6 +35,11 @@ void Engine::input() {
 	if (event.type == Event::MouseButtonPressed) {
 		if (event.mouseButton.button == Mouse::Left) {
 		cout << "Click" << endl;
+		for (int i = 0; i < 5; i++) {
+			cout << "Creating Particles" << endl;
+			Particle p(m_Window, rand() % 50 + 25, Mouse::getPosition());
+			m_particles.push_back(p);
+		}
 		}
 	}
 }
