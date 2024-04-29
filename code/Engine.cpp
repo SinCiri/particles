@@ -14,12 +14,12 @@ void Engine::run() {
 	//game loop
 	while (m_Window.isOpen()) {
 		//restart the clock since last frame
-		clock.restart();
+		Time GameTime = clock.restart();
 		//get the time of the clock
-		Time GameTime = clock.getElapsedTime();
 		//keep track of the total time elapced.
 		float timeElapced = GameTime.asSeconds();
 		timeElapced = timeElapced + GameTime.asSeconds();
+		cout << "Time: " << timeElapced << endl;
 		input();
 		update(timeElapced);
 		draw();
